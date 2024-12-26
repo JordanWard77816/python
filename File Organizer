@@ -1,0 +1,17 @@
+import os
+from shutil import move
+from pathlib import Path
+
+def organize_directory(folder_path):
+    for file in os.listdir(folder_path):
+        file_path = os.path.join(folder_path, file)
+        if os.path.isfile(file_path):
+            extension = Path(file).suffix[1:]
+            target_folder = os.path.join(folder_path, extension.upper())
+            os.makedirs(target_folder, exist_ok=True)
+            move(file_path, os.path.join(target_folder, file))
+
+if __name__ == "__main__":
+    folder = input("Enter the folder path to organize: ")
+    organize_directory(folder)
+    print("Files organized.")
